@@ -1,0 +1,16 @@
+{
+   "background_page": "background.html",
+   "browser_action": {
+      "default_icon": "bell.png",
+      "default_title": "Chrome Bell",
+      "name": "ChromeBell",
+      "popup": "popup.html"
+   },
+   "description": "A kind health reminder for coders",
+   "icons": {
+      "128": "bell.png"
+   },
+   "name": "ChromeBell",
+   "permissions": [ "tabs", "http://*/*", "https://*/*", "notifications" ],
+   "version": "0.1"
+}

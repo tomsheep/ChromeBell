@@ -1,0 +1,48 @@
+<html>
+  <head>
+	<style>
+		body{
+			width: 200px;
+		}
+		#timerSpan {
+			width: 50px;
+		}
+	</style>
+    <script>
+		function $ (id) {
+			return document.getElementById(id);
+		}
+		
+		function save () {
+			var timerSpan = $("timerSpan").value;
+			localStorage["kickOff"] = $("kickoff").checked;
+			localStorage["timerSpan"] = timerSpan;
+			localStorage["nextAlertTime"] = new Date().valueOf() + timerSpan * 1000 * 60;
+			window.close();
+			//alert(localStorage["nextAlertTime"]);
+		}
+		
+		function render() {
+			var kickOff = localStorage["kickOff"];
+			$("kickoff").checked = kickOff;
+			var timerSpan = localStorage["timerSpan"] || "";
+			$("timerSpan").value = timerSpan;
+			$("btnSave").onclick = save;
+		}
+	
+		window.onload = function() {
+			render();
+		};
+    </script>
+
+  </head>
+  <body>
+	<input id="timerSpan" type="text" />
+	minutes
+	<br/>
+	<input id="kickoff" type = "checkbox"/>
+	On
+	<br/>
+	<input id="btnSave" type="button" value="save" />
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	function $ (id) {
+		return document.getElementById(id);
+	}
+
+	function showAlarm(message) {
+		var notification = webkitNotifications.createNotification(
+		  'bell.png',                     
+		  'Time up!',
+		  message
+		);
+		//play sound
+		$("sound").play();
+		notification.show();
+		setTimeout(function(){
+			notification.cancel();
+		}, 30000);
+
+	}
+
+	function checkCounter() {
+		var kickOff = localStorage["kickOff"];
+		var nextAlertTime = localStorage["nextAlertTime"];
+		var timerSpan = localStorage["timerSpan"];
+		if (kickOff && nextAlertTime) {						
+			//alert(Date.parse(nextAlertTime));
+			var now = new Date();
+			console.log("timer:"+nextAlertTime+" now:"+ now.valueOf());
+			//alert(typeof now.valueOf());
+			if (now.valueOf() >= nextAlertTime) {
+				console.log("bingo!");
+				var message = now.toString().match(/..:../)[0]; 
+				localStorage["nextAlertTime"] = now.valueOf() + timerSpan * 1000 * 60;			
+				showAlarm(message);
+			}
+		}
+	}
+	setInterval(checkCounter, 1000);
+
+</script>
+
+</head>
+<body>
+<audio id="sound" src="bell.wav" preload="preload"/>
+</body>
+</html>
+
